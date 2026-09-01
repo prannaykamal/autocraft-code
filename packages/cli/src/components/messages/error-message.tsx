@@ -1,5 +1,4 @@
 import { TextAttributes } from "@opentui/core";
-import { EmptyBorder } from "../border";
 import { useTheme } from "../../providers/theme";
 
 type Props = {
@@ -12,14 +11,9 @@ export function ErrorMessage({ message }: Props) {
   return (
     <box width="100%" alignItems="center">
       <box
-        border={["left"]}
+        border={["top", "right", "bottom", "left"]}
         borderColor={colors.error}
         width="100%"
-        customBorderChars={{
-          ...EmptyBorder,
-          vertical: "┃",
-          bottomLeft: "╹",
-        }}
       >
         <box
           justifyContent="center"
@@ -28,7 +22,12 @@ export function ErrorMessage({ message }: Props) {
           backgroundColor={colors.surface}
           width="100%"
         >
-          <text attributes={TextAttributes.DIM}>{message}</text>
+          <box flexDirection="column" gap={1}>
+            <text fg={colors.error}>SYSTEM NOTICE</text>
+            <text attributes={TextAttributes.DIM} fg={colors.foreground}>
+              {message}
+            </text>
+          </box>
         </box>
       </box>
     </box>

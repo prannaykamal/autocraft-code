@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useDialog } from "../../providers/dialog";
 import { DialogSearchList } from "../dialog-search-list";
 import { Mode, type ModeType } from "@nightcode/shared";
+import { useTheme } from "../../providers/theme";
 
 const AVAILABLE_MODES: ModeType[] = [Mode.BUILD, Mode.PLAN];
 
@@ -19,6 +20,7 @@ export const AgentsDialogContent = ({
   onSelectMode 
 }: AgentsDialogContentProps) => {
   const dialog = useDialog();
+  const { colors } = useTheme();
 
   const handleSelect = useCallback(
     (nextMode: ModeType) => {
@@ -34,7 +36,10 @@ export const AgentsDialogContent = ({
       onSelect={handleSelect}
       filterFn={(item, query) => getModeLabel(item).toLowerCase().includes(query.toLowerCase())}
       renderItem={(item, isSelected) => (
-        <text selectable={false} fg={isSelected ? "black" : "white"}>
+        <text
+          selectable={false}
+          fg={isSelected ? colors.selectionForeground ?? colors.background : colors.foreground}
+        >
           {item === currentMode ? " • " : "   "}
           {getModeLabel(item)}
         </text>

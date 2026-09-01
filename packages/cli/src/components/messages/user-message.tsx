@@ -1,5 +1,4 @@
 import { Mode, type ModeType } from "@nightcode/shared";
-import { EmptyBorder } from "../border";
 import { useTheme } from "../../providers/theme";
 
 type Props = {
@@ -13,13 +12,9 @@ export function UserMessage({ message, mode }: Props) {
   return (
     <box width="100%" alignItems="center">
       <box
-        border={["left"]}
-        borderColor={mode === Mode.PLAN ? colors.planMode : colors.primary}        width="100%"
-        customBorderChars={{
-          ...EmptyBorder,
-          vertical: "┃",
-          bottomLeft: "╹",
-        }}
+        border={["top", "right", "bottom", "left"]}
+        borderColor={colors.border ?? colors.thinkingBorder}
+        width="100%"
       >
         <box
           justifyContent="center"
@@ -28,7 +23,12 @@ export function UserMessage({ message, mode }: Props) {
           backgroundColor={colors.surface}
           width="100%"
         >
-          <text>{message}</text>
+          <box flexDirection="column" gap={1}>
+            <text fg={mode === Mode.PLAN ? colors.planMode : colors.primary}>
+              YOU · {mode === Mode.PLAN ? "PLAN" : "BUILD"}
+            </text>
+            <text fg={colors.foreground}>{message}</text>
+          </box>
         </box>
       </box>
     </box>

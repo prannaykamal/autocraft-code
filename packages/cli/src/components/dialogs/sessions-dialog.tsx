@@ -8,6 +8,7 @@ import { apiClient } from "../../lib/api-client";
 import { getErrorMessage } from "../../lib/http-errors";
 import { DialogSearchList } from "../dialog-search-list";
 import type { InferResponseType } from "hono/client";
+import { useTheme } from "../../providers/theme";
 
 type Session = InferResponseType<(typeof apiClient.sessions)["$get"], 200>[number];
 
@@ -17,6 +18,7 @@ export const SessionsDialogContent = () => {
   const { close } = useDialog();
   const navigate = useNavigate();
   const { show } = useToast();
+  const { colors } = useTheme();
 
   useEffect(() => {
     let ignore = false;
@@ -75,13 +77,16 @@ export const SessionsDialogContent = () => {
       filterFn={(s, query) => s.title.toLowerCase().includes(query.toLowerCase())}
       renderItem={(session, isSelected) => (
         <>
-          <text selectable={false} fg={isSelected ? "black" : "white"}>
+          <text
+            selectable={false}
+            fg={isSelected ? colors.selectionForeground ?? colors.background : colors.foreground}
+          >
             {session.title}
           </text>
           <box flexGrow={1} />
           <text
             selectable={false}
-            fg={isSelected ? "black" : undefined}
+            fg={isSelected ? colors.selectionForeground ?? colors.background : colors.muted}
             attributes={TextAttributes.DIM}
           >
             {format(new Date(session.createdAt), "hh:mm a")}

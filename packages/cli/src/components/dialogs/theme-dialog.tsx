@@ -7,7 +7,7 @@ import type { Theme } from "../../theme";
 
 export const ThemeDialogContent = () => {
   const dialog = useDialog();
-  const { setTheme, currentTheme } = useTheme();
+  const { setTheme, currentTheme, colors } = useTheme();
   const originalThemeRef = useRef(currentTheme);
   const confirmedRef = useRef(false);
 
@@ -43,7 +43,10 @@ export const ThemeDialogContent = () => {
       onHighlight={handleHighlight}
       filterFn={(t, query) => t.name.toLowerCase().includes(query.toLowerCase())}
       renderItem={(theme, isSelected) => (
-        <text selectable={false} fg={isSelected ? "black" : "white"}>
+        <text
+          selectable={false}
+          fg={isSelected ? colors.selectionForeground ?? colors.background : colors.foreground}
+        >
           {theme.name === originalThemeRef.current.name
             ? "\u0020\u2022\u0020"
             : "\u0020\u0020\u0020"}

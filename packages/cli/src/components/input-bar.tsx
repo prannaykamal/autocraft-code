@@ -9,7 +9,6 @@ import type { TextareaRenderable, ScrollBoxRenderable } from "@opentui/core";
 import { useKeyboard, useRenderer } from "@opentui/react";
 import type { KeyBinding } from "@opentui/core";
 import { useNavigate } from "react-router";
-import { EmptyBorder } from "./border";
 import { StatusBar } from "./status-bar";
 import { CommandMenu } from "./command-menu";
 import type { Command } from "./command-menu/types";
@@ -240,13 +239,19 @@ function FileMentionMenu({
             onMouseDown={() => onExecute(index)}
           >
             <box flexGrow={1} flexShrink={1} overflow="hidden">
-              <text selectable={false} fg={isSelected ? "black" : "white"}>
+              <text
+                selectable={false}
+                fg={isSelected ? colors.selectionForeground ?? colors.background : colors.foreground}
+              >
                 {candidate.path}
               </text>
             </box>
 
             <box width={8} alignItems="flex-end" flexShrink={0}>
-              <text selectable={false} fg={isSelected ? "black" : "gray"}>
+              <text
+                selectable={false}
+                fg={isSelected ? colors.selectionForeground ?? colors.background : colors.muted}
+              >
                 {candidate.kind === "directory" ? "Folder" : "File"}
               </text>
             </box>
@@ -539,13 +544,8 @@ export function InputBar({ onSubmit, disabled = false }: Props) {
   return (
     <box width="100%" alignItems="center">
       <box
-        border={["left"]}
+        border={["top", "right", "bottom", "left"]}
         borderColor={mode === Mode.BUILD ? colors.primary : colors.planMode}
-        customBorderChars={{
-          ...EmptyBorder,
-          vertical: "┃",
-          bottomLeft: "╹",
-        }}
         width="100%"
       >
         <box
@@ -601,7 +601,7 @@ export function InputBar({ onSubmit, disabled = false }: Props) {
             }
             keyBindings={TEXTAREA_KEY_BINDINGS}
             onContentChange={handleTextareaContentChange}
-            placeholder={`Ask anything... "Fix a bug in the database"`}
+            placeholder="Describe what you want to build, change, or understand..."
           />
           <StatusBar />
         </box>

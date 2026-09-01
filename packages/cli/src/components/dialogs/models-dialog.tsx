@@ -3,6 +3,7 @@ import { useDialog } from "../../providers/dialog";
 import { DialogSearchList } from "../dialog-search-list";
 import { Mode } from "@nightcode/database/enums";
 import type { SupportedChatModelId } from "@nightcode/shared";
+import { useTheme } from "../../providers/theme";
 
 type ModelsDialogContentProps = {
   models: SupportedChatModelId[];
@@ -14,6 +15,7 @@ export const ModelsDialogContent = ({
   onSelectModel 
 }: ModelsDialogContentProps) => {
   const dialog = useDialog();
+  const { colors } = useTheme();
 
   const handleSelect = useCallback(
     (modelId: SupportedChatModelId) => {
@@ -29,7 +31,10 @@ export const ModelsDialogContent = ({
       onSelect={handleSelect}
       filterFn={(modelId, query) => modelId.toLowerCase().includes(query.toLowerCase())}
       renderItem={(modelId, isSelected) => (
-        <text selectable={false} fg={isSelected ? "black" : "white"}>
+        <text
+          selectable={false}
+          fg={isSelected ? colors.selectionForeground ?? colors.background : colors.foreground}
+        >
           {modelId}
         </text>
       )}

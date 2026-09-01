@@ -26,12 +26,20 @@ export function Home() {
       width="100%"
       height="100%"
     >
-      <Header />
-      <box width="100%" maxWidth={78} paddingX={2} flexDirection="column" gap={1}>
-        <InputBar onSubmit={handleSubmit} />
-        <box flexDirection="row" gap={1} flexShrink={0} marginLeft="auto">
-          <text>tab</text>
-          <text attributes={TextAttributes.DIM}>agents</text>
+      <box width="100%" maxWidth={86} paddingX={2} flexDirection="column" gap={2}>
+        <Header />
+        <box flexDirection="column" gap={1}>
+          <InputBar onSubmit={handleSubmit} />
+          <box flexDirection="row" gap={2} flexShrink={0} marginLeft="auto">
+            <box flexDirection="row" gap={1}>
+              <text attributes={TextAttributes.BOLD}>tab</text>
+              <text attributes={TextAttributes.DIM}>switch agent</text>
+            </box>
+            <box flexDirection="row" gap={1}>
+              <text attributes={TextAttributes.BOLD}>/</text>
+              <text attributes={TextAttributes.DIM}>commands</text>
+            </box>
+          </box>
         </box>
       </box>
     </box>

@@ -11,6 +11,11 @@ export type ThemeColors = {
   dialogSurface: string;
   thinkingBorder: string;
   dimSeparator: string;
+  /** Optional UI neutrals used by richer themes. Older themes fall back safely. */
+  foreground?: string;
+  muted?: string;
+  border?: string;
+  selectionForeground?: string;
 };
 
 export type Theme = {
@@ -19,6 +24,28 @@ export type Theme = {
 };
 
 export const THEMES: Theme[] = [
+  {
+    name: "Autocraft Carbon",
+    colors: {
+      // Mirrors globals.css dark mode: true black, white foreground, neutral grays.
+      primary: "#FFFFFF",
+      planMode: "#A4A4A4",
+      selection: "#333333",
+      thinking: "#A4A4A4",
+      success: "#C1C1C1",
+      error: "#FF5B5B",
+      info: "#A4A4A4",
+      background: "#000000",
+      surface: "#222222",
+      dialogSurface: "#121212",
+      thinkingBorder: "#333333",
+      dimSeparator: "#525252",
+      foreground: "#FFFFFF",
+      muted: "#A4A4A4",
+      border: "#242424",
+      selectionForeground: "#FFFFFF",
+    },
+  },
   {
     name: "Nightfox",
     colors: {
@@ -565,4 +592,4 @@ export const THEMES: Theme[] = [
   },
 ];
 
-export const DEFAULT_THEME = THEMES.find((t) => t.name === "Nightfox")!;
+export const DEFAULT_THEME = THEMES.find((t) => t.name === "Autocraft Carbon")!;
